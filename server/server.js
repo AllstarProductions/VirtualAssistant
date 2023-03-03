@@ -1,3 +1,4 @@
+
 import express from 'express'
 import * as dotenv from 'dotenv'
 import cors from 'cors'
@@ -17,7 +18,7 @@ app.use(express.json())
 
 app.get('/', async (req, res) => {
   res.status(200).send({
-    message: 'Hello from Virtual Assistant Pro Turbo!'
+    message: 'Hello from CodeX!'
   })
 })
 
@@ -26,13 +27,13 @@ app.post('/', async (req, res) => {
     const prompt = req.body.prompt;
 
     const response = await openai.createCompletion({
-      model: "text-gpt-3.5-turbo",
+      model: "text-davinci-003",
       prompt: `Generate safe and useful answers from the best AI virtual assistant in the world if asked: "${prompt}"`,
-      temperature: 0.5, // Higher values means the model will take more risks.
-      maxTokens: 2000, // The maximum number of tokens to generate in the completion. Most models have a context length of 2048 tokens (except for the newest models, which support 4096).
-      topP: 1, // alternative to sampling with temperature, called nucleus sampling
-      frequencyPenalty: 0.5, // Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.
-      presencePenalty: 0, // Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.
+      temperature: .5, // Higher values means the model will take more risks.
+      max_tokens: 1500, // The maximum number of tokens to generate in the completion. Most models have a context length of 2048 tokens (except for the newest models, which support 4096).
+      top_p: 1, // alternative to sampling with temperature, called nucleus sampling
+      frequency_penalty: 0.5, // Number between -2.0 and 2.0. Positive values penalize new tokens based on their existing frequency in the text so far, decreasing the model's likelihood to repeat the same line verbatim.
+      presence_penalty: 0, // Number between -2.0 and 2.0. Positive values penalize new tokens based on whether they appear in the text so far, increasing the model's likelihood to talk about new topics.
     });
 
     res.status(200).send({
